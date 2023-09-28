@@ -1,15 +1,6 @@
 from django.shortcuts import render
 
-dogs = [
-    {"name": "Ace", "breed": "PitBull", "description": "Big Baby", "age": 7},
-    {"name": "Rocket", "breed": "Corgi", "description": "Little Fur Ball", "age": 1},
-    {
-        "name": "Mookie",
-        "breed": "French Bulldog",
-        "description": "Loves to Bark",
-        "age": 4,
-    },
-]
+from .models import Dog
 
 
 # Create your views here.
@@ -22,4 +13,10 @@ def about(request):
 
 
 def dogs_index(request):
+    dogs = Dog.objects.all()
     return render(request, "dogs/index.html", {"dogs": dogs})
+
+
+def dogs_detail(request, dog_id):
+    dog = Dog.objects.get(id=dog_id)
+    return render(request, "dogs/detail.html", {"dog": dog})
